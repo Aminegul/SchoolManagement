@@ -18,6 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
+
     private Long id;
 
     private String username;
@@ -33,22 +34,22 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String name, Boolean isAdvisor,
-                           String password, String role, String ssn) {
+    public UserDetailsImpl(Long id, String username, String name, Boolean isAdvisor, String password,
+                           String role,String ssn) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.isAdvisor = isAdvisor;
         this.password = password;
-        this.ssn = ssn;
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(role));
         this.authorities = grantedAuthorities;
+        this.ssn=ssn;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
@@ -80,18 +81,4 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public boolean equals(Object o){
-        if(this==o){
-            return true;
-        }
-
-        if(o==null || getClass()!=o.getClass()){
-            return false;
-        }
-
-        UserDetailsImpl user = (UserDetailsImpl) o;
-        return Objects.equals(id,user.getId());
-    }
-
 }

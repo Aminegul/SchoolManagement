@@ -55,6 +55,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         } catch (UsernameNotFoundException e){
             LOGGER.error("Cannot set user authentication" , e);
         }
+
         filterChain.doFilter(request,response);
     }
 

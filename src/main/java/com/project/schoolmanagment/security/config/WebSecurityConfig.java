@@ -38,14 +38,25 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and()
                 .csrf().disable()
+                //we are specifying the exception handling for unauthorised login try
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/").permitAll()
+                //we are not keeping the session info in backend.
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                //we are disabling security for some URL.s
+                .authorizeRequests().antMatchers(AUTH_WHITE_LIST).permitAll()
+                //The rest URL.s will be authenticated
                 .anyRequest().authenticated();
+
+        //when you logged-in. other requests should come from the same origin.
         http.headers().frameOptions().sameOrigin();
+
+        //injecting the authentication provider that we will use
         http.authenticationProvider(daoAuthenticationProvider());
+
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
     @Bean
@@ -83,11 +94,16 @@ public class WebSecurityConfig {
     }
     private static final String[] AUTH_WHITE_LIST = {
             "/",
+            "swagger-ui.html",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
             "index.html",
             "/images/**",
             "/css/**",
             "/js/**",
             "/contactMessages/save",
-            "/auth/login"
+            "/auth/login",
+            "/login",
+            "/auth/register"
     };
 }

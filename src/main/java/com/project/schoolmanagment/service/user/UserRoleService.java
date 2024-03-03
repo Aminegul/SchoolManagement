@@ -3,7 +3,6 @@ package com.project.schoolmanagment.service.user;
 import com.project.schoolmanagment.contactmessage.exception.ResourceNotFoundException;
 import com.project.schoolmanagment.entity.enums.RoleType;
 import com.project.schoolmanagment.entity.user.UserRole;
-import com.project.schoolmanagment.exception.ConflictException;
 import com.project.schoolmanagment.payload.messages.ErrorMessages;
 import com.project.schoolmanagment.repository.user.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
