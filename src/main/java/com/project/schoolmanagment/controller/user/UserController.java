@@ -95,7 +95,7 @@ public class UserController{
     }
 
     // NOT: updateUserForUsers()********************************************
-    // passwword sışındaki verileri update edicez bu yüzden @PatchMapping
+    // passwword dışındaki verileri update edicez bu yüzden @PatchMapping
     @PatchMapping ("/updateUser") // HTTP PATCH isteği, bir kaynağın kısmi bir güncelleme yapılmasını sağlar. Yani, bir kaynağın yalnızca belirli alanları değiştirilmek istendiğinde PATCH isteği kullanılır. Bu, verilerin tamamını güncelleme gereği olmadan, sadece değiştirilmesi istenen alanların değiştirilebileceği bir yöntemdir.
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')") //Student student controllerda olacak
     public ResponseEntity<String> updateUser (@RequestBody @Valid UserRequestWithoutPassword userRequestWithoutPassword,
@@ -114,6 +114,7 @@ public class UserController{
 
         //TODO şu dersleri alan öğrencileri getir??????????? nasıl yapılır
     }
+
 
 
 }

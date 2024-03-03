@@ -82,10 +82,7 @@ public class WebSecurityConfig {
         };
     }
     private static final String[] AUTH_WHITE_LIST = {
-            "/v3/api-docs/**",
-            "swagger-ui.html",
-            "/swagger-ui/**",
-            "/user/save/*",
+            "/",
             "index.html",
             "/images/**",
             "/css/**",

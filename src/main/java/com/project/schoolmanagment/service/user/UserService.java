@@ -230,11 +230,18 @@ public class UserService {
 
         // ?????????????????????????????????????????????   UserRepository classı içinde getUserByNameContaining
         return userRepository.getUserByNameContaining(name) // POJO dönecekti onu DTO ya çevircem
-                .stream()
+                .stream() //aktarım -
                 .map(userMapper::mapUserToUserResponse)
                 .collect(Collectors.toList());
 
         // BU YAPI : Java Streamden gelen bi yapı. Bize hazır metodlar sunar. Örneğin map methodu eşleştirme metodudur.
+    }
+
+    // -----------------------------------------------------
+
+    // NOT: Runner için yazıldı ************************************************
+    public long countAllAdmins(){
+        return userRepository.countAdmin(RoleType.ADMIN);
     }
 }
 

@@ -23,13 +23,14 @@ public class AuthenticationController { //  Authentication - WHO ARE U? ********
     private final AuthenticationService authenticationService;
 
     //NOT: Login() **********************************
-    @PostMapping("/login") //http://localhost:8091/authh/login + POST +JSON
+    @PostMapping("/login") //http://localhost:8091/auth/login + POST +JSON
     public ResponseEntity<AuthResponse> authenticateUser(@RequestBody @Valid LoginRequest loginRequest){
         return authenticationService.authenticateUser(loginRequest);
     }
 
+
     //NOT: findByUsername()*********************************
-    @GetMapping("/user") //http://localhost:8080/auth/user  + GET
+    @GetMapping("/user") //http://localhost:8091/auth/user  + GET
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASISTANT_MANAGER','TEACHER','STUDENT')") //sisteme tontike edilmiş herhangi bir kulllanıcı bu metodu tetikleyebilsin - kayıtlı olmayan kişiler bunu aratamasın diye
     public ResponseEntity<UserResponse> findByUsername(HttpServletRequest request){ //bu Spring frameworkten gelen bir class mvc dersinde görülmüş
         String username = (String) request.getAttribute("username");//service kısmında set etmiştik requesti
@@ -37,9 +38,10 @@ public class AuthenticationController { //  Authentication - WHO ARE U? ********
         return ResponseEntity.ok(userResponse); //200 kod
     }
 
+
+
     //NOT: updatePassword()*********************************
-    @PatchMapping("/updatePassword") //http://localhost:8080/auth/updatePassword  + GET
-    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASISTANT_MANAGER','TEACHER','STUDENT')")
+    @PatchMapping("/updatePassword") //http://localhost:8091/auth/updatePassword  + GET
     public ResponseEntity<String> updatePassword(@RequestBody @Valid UpdatePasswordRequest updatePasswordRequest,
                                                  HttpServletRequest request){
 

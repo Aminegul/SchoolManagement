@@ -22,6 +22,8 @@ public class UserRoleService{
                 .orElseThrow(()->new ResourceNotFoundException(ErrorMessages.ROLE_NOT_FOUND));
     }
 
+
+    //??????????????????????*
     public List<UserRole> getAllUserRole(){
         return userRoleRepository.findAll();
     }

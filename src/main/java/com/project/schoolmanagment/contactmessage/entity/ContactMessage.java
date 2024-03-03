@@ -1,5 +1,8 @@
 package com.project.schoolmanagment.contactmessage.entity;
 
+//İLK BU CLASS OLUŞTURULUR
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -10,6 +13,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
 
 @Entity
 
@@ -24,6 +28,11 @@ public class ContactMessage { //entity objemiz DB de tablosu oluşturulacak
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //JPA'da bir id sütunun otomatik artma modeli @GeneratedValue enumun, strategy özelliği ile verilmektedir. Aşağıdaki değerleri alabilir:
+    //GenerationType.AUTO : Veritabanın varsayılan id artırma yöntemini kullanılır
+    //GenerationType.IDENTITY : Otomatik artan id sütunu kullanır
+    //GenerationType.SEQUENCE : Sequence (id değerlerinin ayrı bir sequence ile artırılması) kullanır
+    //GenerationType.TABLE : Id artırımı için bir tablo kullanılır ve id değerleri orada tutulur
     private Long id;
 
     @NotNull
