@@ -173,6 +173,7 @@ public class UserService {
         // !!! password encoded
         updatedUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 
+        updatedUser.setUserRole(user.getUserRole());
 
         User savedUser = userRepository.save(updatedUser);
 

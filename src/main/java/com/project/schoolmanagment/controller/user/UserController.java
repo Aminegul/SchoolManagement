@@ -106,7 +106,7 @@ public class UserController{
 
     // NOT: getByName()************************************************
 
-    @GetMapping("/getUserByName") // http://localhost:8080/user/getUserByName?name=user1
+    @GetMapping("/getUserByName") // http://localhost:8091/user/getUserByName?name=user1
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
     public List<UserResponse> getUserByName( @RequestParam(name="name") String name ){  // @RequestParam: Bu anotasyon, bir metodun çağrılması sırasında gönderilen bir parametreyi almasını sağlar. Örneğin, bir metodun /customer/create adresiyle çağrılması sırasında gönderilen “firstName” parametresini almasını sağlamak için @RequestParam(“firstName”) String firstName anotasyonunu kullanabilirsiniz.
 

@@ -35,18 +35,20 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain filterChain)
-            throws ServletException, IOException
-    {
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         try {
-
+            //1- get JWT from header
             String jwt = parseJwt(request);
-
-            if(jwt!=null && jwtUtils.validateJwtToken(jwt)){
-                String username = jwtUtils.getUsernameFromJwtToken(jwt);
+            //2- validate JWT
+            if(jwt!=null && jwtUtils.validateJwt(jwt)){
+                //3- we need username
+                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+                //4- check DB if we have user like that and extend it to UserDetails
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                //5- we are setting the username info into the username attribute
                 request.setAttribute("username",username);
+                //6- we have to inform security context about the logged in users
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,null,userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -55,9 +57,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         } catch (UsernameNotFoundException e){
             LOGGER.error("Cannot set user authentication" , e);
         }
-
         filterChain.doFilter(request,response);
     }
+
+    // example of Jwt
+    //Bearer
 
     private String parseJwt(HttpServletRequest request){
         String headerAuth = request.getHeader("Authorization");
@@ -67,5 +71,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         LOGGER.error("Header does not contain JWT info");
         return null;
     }
+
 
 }

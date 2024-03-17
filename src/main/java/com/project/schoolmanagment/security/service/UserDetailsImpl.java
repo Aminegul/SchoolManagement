@@ -18,7 +18,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-
     private Long id;
 
     private String username;
@@ -34,6 +33,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
+
     public UserDetailsImpl(Long id, String username, String name, Boolean isAdvisor, String password,
                            String role,String ssn) {
         this.id = id;
@@ -48,17 +48,17 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority>getAuthorities(){
         return authorities;
     }
 
     @Override
-    public String getPassword() {
+    public String getPassword(){
         return password;
     }
 
     @Override
-    public String getUsername() {
+    public String getUsername(){
         return username;
     }
 

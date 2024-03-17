@@ -30,10 +30,9 @@ public class WebSecurityConfig {
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+    /**
+     * main configuration class for spring security
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and()
@@ -59,6 +58,20 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
+    /**
+     * this will be our authentication manager in spring security
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+
+    /**
+     *
+     * @return our own token filter class that exist in jwt package
+     */
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter(){
         return new AuthTokenFilter();
@@ -77,6 +90,8 @@ public class WebSecurityConfig {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
+
+
     @Bean
     public WebMvcConfigurer corsConfigurer(){
         return new WebMvcConfigurer() {
@@ -92,18 +107,21 @@ public class WebSecurityConfig {
             }
         };
     }
+
+    /**
+     * these URL.s will be out of the scope of security
+     */
     private static final String[] AUTH_WHITE_LIST = {
-            "/",
+            "/v3/api-docs/**",
             "swagger-ui.html",
             "/swagger-ui/**",
-            "/v3/api-docs/**",
+            "/user/save/*",
             "index.html",
             "/images/**",
             "/css/**",
             "/js/**",
             "/contactMessages/save",
-            "/auth/login",
-            "/login",
-            "/auth/register"
+            "/auth/login"
     };
+
 }

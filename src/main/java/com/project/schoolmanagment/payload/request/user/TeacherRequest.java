@@ -1,20 +1,24 @@
 package com.project.schoolmanagment.payload.request.user;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.schoolmanagment.payload.request.abstracts.BaseUserRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import net.bytebuddy.implementation.bind.annotation.Super;
 
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @SuperBuilder
+public class TeacherRequest extends BaseUserRequest {
 
-public class UserRequest extends BaseUserRequest {
+    @NotNull(message = "Please select Lesson")
+    private Set<Long> lessonsIdList;
+
+    @NotNull(message = "Please select isAdvisor Teacher")
+    private Boolean isAdvisorTeacher;
 
 }

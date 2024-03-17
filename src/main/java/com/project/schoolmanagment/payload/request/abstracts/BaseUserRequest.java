@@ -18,5 +18,6 @@ public abstract class BaseUserRequest extends AbstractUserRequest{
     @Size(min = 8,max = 60,message = "Your password should be between 8-60 characters")
     private String password;
 
+    private Boolean builtIn;
 
 }

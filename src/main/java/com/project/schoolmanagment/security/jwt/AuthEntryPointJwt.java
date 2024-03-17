@@ -35,7 +35,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         //we are specifying the response status (401)
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         //we are specifying the body for our custom response in case of error
-        final Map<String,Object> body = new HashMap<>();
+        final Map<String,Object>body = new HashMap<>();
         body.put("status",HttpServletResponse.SC_UNAUTHORIZED);
         body.put("error type","Unauthorized");
         body.put("message",authException.getMessage());
