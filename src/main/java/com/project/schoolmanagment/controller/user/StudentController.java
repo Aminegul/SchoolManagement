@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping ("/student")
+@RequestMapping("/student")
 @RequiredArgsConstructor
 public class StudentController {
 
@@ -35,7 +35,7 @@ public class StudentController {
     @PreAuthorize("hasAnyAuthority('STUDENT')")
     @PatchMapping("/update")
     public ResponseEntity<String> updateStudent(@RequestBody @Valid StudentRequestWithoutPassword studentRequestWithoutPassword,
-                                                HttpServletRequest request){
+                                                HttpServletRequest request) {
         return studentService.updateStudent(studentRequestWithoutPassword, request);
     }
 
@@ -43,7 +43,7 @@ public class StudentController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASISTANT_MANAGER')")
     @PutMapping("/update/{userId}")
     public ResponseMessage<StudentResponse> updateStudentForManagers(@PathVariable Long userId,
-                                                                     @RequestBody @Valid StudentRequest studentRequest){
+                                                                     @RequestBody @Valid StudentRequest studentRequest) {
         return studentService.updateStudentForManagers(userId, studentRequest);
 
     }
@@ -56,18 +56,16 @@ public class StudentController {
     @PostMapping("/addLessonProgramToStudent")
     @PreAuthorize("hasAnyAuthority('STUDENT')")
     public ResponseMessage<StudentResponse> addLessonProgram(HttpServletRequest request, // öğrencinin kim olduğunu bilmemiz için
-                                                             @RequestBody @Valid ChooseLessonProgramWithId chooseLessonProgramWithId){
-       String userName = (String) request.getAttribute("username");
-       return studentService.addLessonProgramToStudent(userName, chooseLessonProgramWithId);
+                                                             @RequestBody @Valid ChooseLessonProgramWithId chooseLessonProgramWithId) {
+        String userName = (String) request.getAttribute("username");
+        return studentService.addLessonProgramToStudent(userName, chooseLessonProgramWithId);
     }
 
     // NOT: changeActiveStatusOfStudent **********************************************
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASISTANT_MANAGER')")
-    @PatchMapping ("/changedStatus")
-    public ResponseMessage changeStatusOfStudent(@RequestParam Long studentId, @RequestParam boolean status){
-        return studentService.changeStatusOfStudent(studentId,status);
+    @PatchMapping("/changedStatus")
+    public ResponseMessage changeStatusOfStudent(@RequestParam Long studentId, @RequestParam boolean status) {
+        return studentService.changeStatusOfStudent(studentId, status);
     }
-
-
 
 }

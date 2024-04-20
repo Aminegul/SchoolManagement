@@ -53,7 +53,6 @@ public class DateTimeValidator {
                     }
                 }
 
-                // TODO tamemen ortada olma durumu kontrolü...
                 //bitiş saatine göre kontrol
                 for (LocalTime stopTime : existingLessonProgramStopTimes) {
                     if (lessonProgram.getStartTime().isBefore(stopTime) && lessonProgram.getEndTime().isAfter(stopTime)) {
@@ -83,7 +82,8 @@ public class DateTimeValidator {
                     .anyMatch(lessonProgram -> lessonProgram.getDay().name().equals(requestLessonProgram)
                                 && (lessonProgram.getStartTime().equals(requestLessonProgram)
                                 || (lessonProgram.getStartTime().isBefore(requestStart) && lessonProgram.getEndTime().isAfter(requestStart))
-                                || (lessonProgram.getStartTime().isBefore(requestStop) && lessonProgram.getEndTime().isAfter(requestStop))))
+                                || (lessonProgram.getStartTime().isBefore(requestStop) && lessonProgram.getEndTime().isAfter(requestStop))
+                                || (lessonProgram.getStartTime().isAfter(requestStart) && lessonProgram.getEndTime().isBefore(requestStop))))
             ){
                 throw new ConflictException(ErrorMessages.LESSON_PROGRAM_ALREADY_EXIST);
             }
